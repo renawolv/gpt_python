@@ -9,15 +9,23 @@ resposta = cliente.chat.completions.create(
     messages=[
         {
             "role": "system",
-            "content": "Listar apenas os nomes dos produtos, sem considerar descrição."
+            "content": """
+            Classifique o produto abaixo em uma das categorias: 
+            Higiene Pessoal, Moda ou Casa de uma descrição da categoria.
+            """
         },
         {
             "role":"user",
-            "content":"Liste 3 produtos sustentáveis"
+            "content":"""
+            Escova de dentes de bambu
+            """
         }
     ],
-    model="gpt-4o"
+    model="gpt-4o",
+    temperature = 0,
+    max_tokens = 200,
+    n = 3
 )
 
-##print(resposta)
-print(resposta.choices[0].message.content)
+for contador in range(0,3):
+    print(resposta.choices[contador].message.content)
